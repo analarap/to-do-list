@@ -3,7 +3,7 @@ import './App.css';
 import {useState, useEffect} from 'react';
 import {BsTrash, BsBookmarkCheck, BsBookmarkCheckFill} from 'react-icons/bs';
 
-const API = "https://localhost:5000"
+const API = "http://localhost:5000"
 
 function App() {
   const [title, setTitle] = useState("")
@@ -11,7 +11,7 @@ function App() {
   const [todos, setTodos] = useState([])
   const [loading, setLoading] = useState(false)
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault()
 
     const todo = {
@@ -21,7 +21,13 @@ function App() {
       done: false
     }
 
-    console.log(todo)
+    await fetch(API + "/todos", {
+      method: "POST",
+      body: JSON.stringify(todo),
+      headers: {
+        "Content-Type": "application/json"
+      },
+    });
 
     setTitle("")
     setTime("")
