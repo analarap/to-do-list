@@ -51,6 +51,10 @@ function App() {
     setTime("")
   }
 
+  if(loading) {
+    return <p>Carregando...</p>
+  }
+
   return (
     <div className="App">
       <div className="todo-header">
@@ -89,9 +93,16 @@ function App() {
       <div className="list-todo">
         <h2>Task List: </h2>
         {todos.length === 0 && <p>No task available</p>}
-        {todos.map((todos) => (
-          <div className="todo" key={todos.id}>
-            <p>{todos.title}</p>
+        {todos.map((todo) => (
+          <div className="todo" key={todo.id}>
+            <h3 className={todo.done ? "todo-done" : ""}>{todo.title}</h3>
+            <p>Time: {todo.time} hours</p>
+            <div className="todo-actions">
+              <span>
+                {!todo.done ? <BsBookmarkCheck /> : <BsBookmarkCheckFill />}
+              </span>
+              <BsTrash />
+            </div>
           </div>
         ))}
       </div>
